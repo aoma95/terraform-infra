@@ -31,7 +31,7 @@ provider "scaleway" {
 # Private pn_priv
 resource "scaleway_vpc_private_network" "pn_priv" {
     name = "pn_priv"
-    range = "192.168.0.0/24"
+    # range = "192.168.0.0/24"
 
 }
 # Instance DEV-S
@@ -54,27 +54,27 @@ resource "scaleway_instance_volume" "server_volume" {
     size_in_gb = 30
 }
 # Attachement du volume à l'instance DEV1-S
-resource "scaleway_instance_volume_attachment" "mes-instances-DEV1-S" {
-  instance_id = scaleway_instance_server.mes-instances-DEV1-S.id
-  volume_id   = scaleway_volume.server_volume.id
-}
+# resource "scaleway_instance_volume_attachment" "mes-instances-DEV1-S" {
+#   instance_id = scaleway_instance_server.mes-instances-DEV1-S.id
+#   volume_id   = scaleway_volume.server_volume.id
+# }
 # Attachement du volume à l'instance DEV1-XL
-resource "scaleway_instance_volume_attachment" "mes-instances-DEV1-XL" {
-  instance_id = scaleway_instance_server.mes-instances-DEV1-XL.id
-  volume_id   = scaleway_volume.server_volume.id
-}
-resource "scaleway_instance_nic" "mes-instances-DEV1-S" {
-  count = 3
-  instance_id = scaleway_instance_server.mes-instances-DEV1-S.id
-  private_network_id = scaleway_vpc_private_network.pn_priv.id
-  ip_address = "192.168.0.${count.index + 1}"
-}
-# NIC pour l'instance DEV-XL
-resource "scaleway_instance_nic" "mes-instances-DEV1-XL" {
-  instance_id = scaleway_instance_server.mes-instances-DEV1-XL.id
-  private_network_id = scaleway_vpc_private_network.pn_priv.id
-  ip_address = "192.168.0.4"
-}
+# resource "scaleway_instance_volume_attachment" "mes-instances-DEV1-XL" {
+#   instance_id = scaleway_instance_server.mes-instances-DEV1-XL.id
+#   volume_id   = scaleway_volume.server_volume.id
+# }
+# resource "scaleway_instance_nic" "mes-instances-DEV1-S" {
+#   count = 3
+#   instance_id = scaleway_instance_server.mes-instances-DEV1-S.id
+#   private_network_id = scaleway_vpc_private_network.pn_priv.id
+#   ip_address = "192.168.0.${count.index + 1}"
+# }
+# # NIC pour l'instance DEV-XL
+# resource "scaleway_instance_nic" "mes-instances-DEV1-XL" {
+#   instance_id = scaleway_instance_server.mes-instances-DEV1-XL.id
+#   private_network_id = scaleway_vpc_private_network.pn_priv.id
+#   ip_address = "192.168.0.4"
+# }
 # Provisionning pour l'installation de Docker sur les instances DEV-S
 resource "null_resource" "install-docker-dev1-s" {
   count = 3
