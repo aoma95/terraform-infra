@@ -75,3 +75,32 @@ resource "scaleway_instance_nic" "mes-instances-DEV1-XL" {
   private_network_id = scaleway_vpc_private_network.pn_priv.id
   ip_address = "192.168.0.4"
 }
+# Provisionning pour l'installation de Docker sur les instances DEV-S
+resource "null_resource" "install-docker-dev1-s" {
+  count = 3
+  connection {
+    host = scaleway_instance_server.mes-instances-DEV1-S[count.index].ip_address
+    user = "root"
+    private_key = file("~/.ssh/id_rsa")
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "apt-get update",
+      "apt-get install -y docker.io"
+    ]
+  }
+}
+# Provisionning pour l'installation de Docker sur l'instance DEV-XL
+resource "null_resource" "install-docker-dev1-xl" {
+  connection {
+    host = scaleway_instance_server.mes-instances-DEV1-XL.ip_address
+    user = "root"
+    private_key = file("~/.ssh/id_rsa")
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "apt-get update",
+      "apt-get install -y docker.io"
+    ]
+  }
+}
