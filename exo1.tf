@@ -18,8 +18,13 @@ resource "scaleway_vpc_private_network" "pn_priv" {
 
 }
 resource "scaleway_instance_server" "mes-instances-DEV1-S" {
-  count         = 3
-  type          = "DEV1-S"
-  name          = "instance-${count.index}"
-  image         = "ubuntu_focal"
+  count = 3
+  type = "DEV1-S"
+  name = "instance-DEV1-S-${count.index}"
+  image = "ubuntu_focal"
+}
+resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
+  image = "ubuntu_focal"
+  type  = "DEV1-XL"
+  name = "instance-DEV1-XL-${count.index}"
 }
