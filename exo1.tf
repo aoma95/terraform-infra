@@ -7,6 +7,22 @@ terraform {
   }
 }
 
+variable "instance_type_1" {
+  type = string
+  default = "DEV1-S"
+}
+variable "instance_type_2" {
+  type = string
+  default = "DEV1-XL"
+}
+variable "instance_count_1" {
+  type = number
+  default = 3
+}
+variable "instance_count_2" {
+  type = number
+  default = 1
+}
 provider "scaleway" {
   # Configuration options
   zone   = "fr-par-1"
@@ -19,15 +35,16 @@ resource "scaleway_vpc_private_network" "pn_priv" {
 }
 # Instance DEV-S
 resource "scaleway_instance_server" "mes-instances-DEV1-S" {
-  count = 3
-  type = "DEV1-S"
+  count = var.instance_count_1
+  type = var.instance_type_1
   name = "dan-${count.index}"
   image = "ubuntu_focal"
 }
 # Instance DEV-XL
 resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
+  count = var.instance_count_2
   image = "ubuntu_focal"
-  type  = "DEV1-XL"
+  type  = var.instance_type_2
   name = "dan-${count.index}"
 }
 resource "scaleway_instance_volume" "server_volume" {
