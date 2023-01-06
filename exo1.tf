@@ -12,7 +12,7 @@ provider "scaleway" {
   zone   = "fr-par-1"
   region = "fr-par"
 }
-
+# Private pn_priv
 resource "scaleway_vpc_private_network" "pn_priv" {
     name = "pn_priv"
 
