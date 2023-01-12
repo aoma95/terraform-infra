@@ -53,7 +53,7 @@ resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
   image = "ubuntu_focal"
   type  = var.instance_type_2
   name = "dan-${count.index}"
-  additional_volume_ids = [scaleway_instance_volume.server_volume[var.instance_count+count.index].id]
+  additional_volume_ids = [scaleway_instance_volume.server_volume[var.instance_count_1 + count.index].id]
   private_network {
     pn_id = scaleway_vpc_private_network.pn_priv.id
   }
