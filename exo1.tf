@@ -60,7 +60,7 @@ resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
   
 }
 resource "scaleway_instance_volume" "server_volume" {
-    type       = "l_ssd"
+    type       = "b_ssd"
     count = var.instance_count_1 + var.instance_count_2
     name       = "petit-volume-${count.index}"
     size_in_gb = 30
