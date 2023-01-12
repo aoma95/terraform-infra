@@ -6,7 +6,9 @@ terraform {
     }
   }
 }
-
+variable "volume_count" {
+  type = number
+}
 variable "instance_type_1" {
   type = string
   default = "DEV1-S"
