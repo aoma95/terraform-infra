@@ -33,7 +33,6 @@ provider "scaleway" {
 # Private pn_priv
 resource "scaleway_vpc_private_network" "pn_priv" {
     name = "pn_priv"
-    # range = "192.168.0.0/24"
 
 }
 # Instance DEV-S
@@ -42,8 +41,8 @@ resource "scaleway_instance_server" "mes-instances-DEV1-S" {
   type = var.instance_type_1
   name = "dan-${count.index}"
   image = "ubuntu_focal"
-  additional_volume_ids = [for volume in scaleway_instance_volume.server_volume : volume.id]
-    private_network {
+  additional_volume_ids = [scaleway_instance_volume.server_volume[count.index].id]
+  private_network {
     pn_id = scaleway_vpc_private_network.pn_priv.id
   }
 
@@ -54,14 +53,15 @@ resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
   image = "ubuntu_focal"
   type  = var.instance_type_2
   name = "dan-${count.index}"
-    private_network {
+  additional_volume_ids = [scaleway_instance_volume.server_volume[var.instance_count+count.index].id]
+  private_network {
     pn_id = scaleway_vpc_private_network.pn_priv.id
   }
   
 }
 resource "scaleway_instance_volume" "server_volume" {
     type       = "l_ssd"
-    count = var.volume_count
+    count = var.instance_count_1 + var.instance_count_2
     name       = "petit-volume-${count.index}"
     size_in_gb = 30
 }
