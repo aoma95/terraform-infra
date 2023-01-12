@@ -49,12 +49,12 @@ resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
   image = "ubuntu_focal"
   type  = var.instance_type_2
   name = "dan-${count.index}"
-  additional_volume_ids = [ scaleway_instance_volume.server_volume.id ]
+  
 }
 resource "scaleway_instance_volume" "server_volume" {
     type       = "l_ssd"
     name       = "petit-volume"
-    size_in_gb = 20
+    size_in_gb = 30
 }
 # Attachement du volume à l'instance DEV1-S
 # resource "scaleway_instance_volume_attachment" "mes-instances-DEV1-S" {
@@ -79,20 +79,20 @@ resource "scaleway_instance_volume" "server_volume" {
 #   ip_address = "192.168.0.4"
 # }
 # Provisionning pour l'installation de Docker sur les instances DEV-S
-resource "null_resource" "install-docker-dev1-s" {
-  count = 3
-  connection {
-    host = scaleway_instance_server.mes-instances-DEV1-S[count.index].ip_address
-    user = "root"
-    private_key = file("~/.ssh/id_rsa")
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "apt-get update",
-      "apt-get install -y docker.io"
-    ]
-  }
-}
+# resource "null_resource" "install-docker-dev1-s" {
+  # count = 3
+  # connection {
+    # host = scaleway_instance_server.mes-instances-DEV1-S[count.index].ip_address
+    # user = "root"
+    # private_key = file("~/.ssh/id_rsa")
+  # }
+  # provisioner "remote-exec" {
+    # inline = [
+      # "apt-get update",
+      # "apt-get install -y docker.io"
+    # ]
+  # }
+# }
 # Provisionning pour l'installation de Docker sur l'instance DEV-XL
 # resource "null_resource" "install-docker-dev1-xl" {
   # connection {
