@@ -42,7 +42,7 @@ resource "scaleway_instance_server" "mes-instances-DEV1-S" {
   type = var.instance_type_1
   name = "dan-${count.index}"
   image = "ubuntu_focal"
-  additional_volume_ids = [ scaleway_instance_volume.server_volume.id ]
+  volumes = [for volume in scaleway_instance_volume.server_volume : volume.id]
 
 }
 # Instance DEV-XL
