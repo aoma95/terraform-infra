@@ -53,7 +53,8 @@ resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
 }
 resource "scaleway_instance_volume" "server_volume" {
     type       = "l_ssd"
-    name       = "petit-volume"
+    count = var.volume_count
+    name       = "petit-volume-${count.index}"
     size_in_gb = 30
 }
 # Attachement du volume à l'instance DEV1-S
