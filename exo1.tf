@@ -40,8 +40,8 @@ resource "scaleway_instance_server" "mes-instances-DEV1-S" {
   type = var.instance_type_1
   name = "dan-${count.index}"
   image = "ubuntu_focal"
-  volume_id = scaleway_instance_volume.server_volume.id
-  depends_on = [scaleway_instance_volume.server_volume]
+  additional_volume_ids = [ scaleway_instance_volume.server_volume.id ]
+
 }
 # Instance DEV-XL
 resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
@@ -49,8 +49,7 @@ resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
   image = "ubuntu_focal"
   type  = var.instance_type_2
   name = "dan-${count.index}"
-  volume_id = scaleway_instance_volume.server_volume.id
-  depends_on = [scaleway_instance_volume.server_volume]
+  additional_volume_ids = [ scaleway_instance_volume.server_volume.id ]
 }
 resource "scaleway_instance_volume" "server_volume" {
     type       = "l_ssd"
