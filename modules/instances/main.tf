@@ -14,6 +14,7 @@ provider "scaleway" {
 resource "scaleway_instance_server" "mes-instances" {
   count = var.instance_count
   type = var.instance_type
-  name = "dan-${count.index}"
+  name = "${var.name_student}-${count.index}"
   image = "ubuntu_focal"
+  # additional_volume_ids = [scaleway_instance_volume.server_volume[var.volume_count].id]
 }
