@@ -6,6 +6,6 @@ variable "instance_DEV1_XL" {
   type = number
   default = 1
 }
-variable "volume_count"{
-    type = number
-}
+# variable "volume_count"{
+#     type = number
+# }
