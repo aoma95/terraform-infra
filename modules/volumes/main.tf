@@ -6,6 +6,7 @@ terraform {
     }
   }
 }
+
 resource "scaleway_instance_volume" "server_volume" {
     type       = "b_ssd"
     count = var.count_volume
@@ -13,5 +14,5 @@ resource "scaleway_instance_volume" "server_volume" {
     size_in_gb = var.size_volume
 }
 output "volumes" {
-  value = values(scaleway_volume.server_volume.*.id)
+  value = values(scaleway_instance_volume.server_volume.*.id)
 }
