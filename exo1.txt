@@ -1,0 +1,67 @@
+terraform {
+  required_providers {
+    scaleway = {
+      source = "scaleway/scaleway"
+      version = "2.9.0"
+    }
+  }
+}
+variable "volume_count" {
+  type = number
+}
+variable "instance_type_1" {
+  type = string
+  default = "DEV1-S"
+}
+variable "instance_type_2" {
+  type = string
+  default = "DEV1-XL"
+}
+variable "instance_count_1" {
+  type = number
+  default = 3
+}
+variable "instance_count_2" {
+  type = number
+  default = 1
+}
+provider "scaleway" {
+  # Configuration options
+  zone   = "fr-par-1"
+  region = "fr-par"
+}
+# Private pn_priv
+resource "scaleway_vpc_private_network" "pn_priv" {
+    name = "pn_priv"
+
+}
+# Instance DEV-S
+resource "scaleway_instance_server" "mes-instances-DEV1-S" {
+  count = var.instance_count_1
+  type = var.instance_type_1
+  name = "dan-${count.index}"
+  image = "ubuntu_focal"
+  additional_volume_ids = [scaleway_instance_volume.server_volume[count.index].id]
+  private_network {
+    pn_id = scaleway_vpc_private_network.pn_priv[count.index].id
+  }
+
+}
+# Instance DEV-XL
+resource "scaleway_instance_server" "mes-instances-DEV1-XL" {
+  count = var.instance_count_2
+  image = "ubuntu_focal"
+  type  = var.instance_type_2
+  name = "dan-${count.index}"
+  additional_volume_ids = [scaleway_instance_volume.server_volume[var.instance_count_1 + count.index].id]
+  private_network {
+    pn_id = scaleway_vpc_private_network.pn_priv[var.instance_count_1 + count.index].id
+  }
+  
+}
+resource "scaleway_instance_volume" "server_volume" {
+    type       = "b_ssd"
+    count = var.instance_count_1 + var.instance_count_2
+    name       = "petit-volume-${count.index}"
+    size_in_gb = 30
+}
