@@ -9,7 +9,7 @@ module "Create_volume" {
     count_volume = var.instance_DEV1_S + var.instance_DEV1_XL
 }
 output "output_count" {
-  value = length(module.Create_volume.volumes)
+  value = module.volume.volume_ids
 }
 
 #Crée les instances
