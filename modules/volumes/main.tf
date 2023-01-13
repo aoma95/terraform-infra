@@ -14,5 +14,5 @@ resource "scaleway_instance_volume" "server_volume" {
     size_in_gb = var.size_volume
 }
 output "volumes" {
-  value = values(scaleway_instance_volume.server_volume.*.id)
+  value = index(scaleway_instance_volume.server_volume.*.id)
 }
