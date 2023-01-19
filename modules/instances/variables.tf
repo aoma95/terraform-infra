@@ -20,6 +20,6 @@ variable "servers" {
   }))
   default = [
     for i in range(3) : {name = "Dan_DEV1_S${i+1}", image = "ubuntu_focal", type = "DEV1-S"},
-    {name = "Dan_DEV1_XL${i+1}", image = "ubuntu_focal", type = "DEV1-XL"}
+    for i in range(1) : {name = "Dan_DEV1_XL${i+1}", image = "ubuntu_focal", type = "DEV1-XL"}
   ]
 }
