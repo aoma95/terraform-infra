@@ -24,4 +24,3 @@ variable "servers" {
     {name = "Dan_DEV1_XL1", image = "ubuntu_focal", type = "DEV1-XL"}
   ]
 }
-}
