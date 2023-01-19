@@ -10,7 +10,7 @@ variable "name_student" {
   type = string
   default = "Dan"
 }
-variable "image" {
+variable "image_vm" {
   description = "Image de l'instance"
   type = string
 }
