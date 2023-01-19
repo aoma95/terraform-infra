@@ -13,7 +13,7 @@ provider "scaleway" {
 }
 resource "scaleway_instance_server" "mes-instances" {
   type = var.instance_type
-  name = "${var.name_student}-${count.index}"
+  name = "${var.name_student}"
   image = var.image_vm
 }
 # resource "scaleway_instance_volume" "server_volume" {
