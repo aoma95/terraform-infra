@@ -2,19 +2,16 @@ terraform {
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
-      version = "2.9.0"
+      version = "~>2.9.1"
     }
   }
 }
-provider "scaleway" {
-  # Configuration options
-  zone   = "fr-par-1"
-  region = "fr-par"
-}
-resource "scaleway_instance_server" "mes-instances" {
-  type = var.instance_type
-  name = "${var.name_student}"
-  image = var.image_vm
+
+resource "scaleway_instance_server" "instance" {
+  # for_each = var.instance
+  type = var.type
+  name =  var.name
+  image =  var.image
 }
 # resource "scaleway_instance_volume" "server_volume" {
 #     type       = "b_ssd"

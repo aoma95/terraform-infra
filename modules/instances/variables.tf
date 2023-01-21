@@ -1,19 +1,35 @@
-variable "instance_type" {
+# variable "instance_type" {
+#   description = "type de l'instance"
+#   type = string
+# }
+variable "name" {
+  description = "name de l'instance"
+  type = string
+}
+variable "image" {
+  description = "image de l'instance"
+  type = string
+}
+variable "type" {
   description = "type de l'instance"
   type = string
 }
+# variable "instance" {
+#   description = "l'instance"
+#   type = map
+# }
 # variable "instance_count" {
 #   type = number
 # }
-variable "name_student" {
-  description = "Prénom étudiant"
-  type = string
-  default = "Dan"
-}
-variable "image_vm" {
-  description = "Image de l'instance"
-  type = string
-}
+# variable "name_student" {
+#   description = "Prénom étudiant"
+#   type = string
+#   default = "Dan"
+# }
+# variable "image_vm" {
+#   description = "Image de l'instance"
+#   type = string
+# }
 # variable "name_volume" {
 #   type = string
 #   default = "Dan"
