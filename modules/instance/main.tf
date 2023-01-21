@@ -12,6 +12,7 @@ resource "scaleway_instance_server" "instance" {
   type = var.type
   name =  var.name
   image =  var.image
+  additional_volume_ids = [var.volume_id]
 }
 # resource "scaleway_instance_volume" "server_volume" {
 #     type       = "b_ssd"

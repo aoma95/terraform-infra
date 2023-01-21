@@ -30,10 +30,9 @@ variable "type" {
 #   description = "Image de l'instance"
 #   type = string
 # }
-# variable "name_volume" {
-#   type = string
-#   default = "Dan"
-# }
+variable "volume_id" {
+  type = string
+}
 # variable "servers" {
 #   type = list(object({
 #     name = string

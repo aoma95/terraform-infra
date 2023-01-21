@@ -6,3 +6,8 @@ terraform {
     }
   }
 }
+resource "scaleway_instance_volume" "volume" {
+    type       = "b_ssd"
+    name       = var.name
+    size_in_gb = 30
+}
